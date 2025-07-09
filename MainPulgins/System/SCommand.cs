@@ -14,7 +14,7 @@ namespace MainPlugins.System
         private static readonly HashSet<string> _usedPlayers = new HashSet<string>();
 
         public string[] Aliases => Array.Empty<string>();
-        public string Description => "发送全服公告（每位玩家只能使用一次）";
+        public string Description => "发送全服公告（每位玩家每局只能使用一次）";
         public string[] Usage => new string[] { "消息内容" };
         public string Command => "gg";
 
@@ -22,22 +22,14 @@ namespace MainPlugins.System
         {
             response = string.Empty;
 
-            if (!(sender is CommandSender cmdSender))
-            {
-                response = "<color=red>无效的命令发送者！</color>";
-                return false;
-            }
+            if (!(sender is CommandSender cmdSender)) return false;
 
             var potentialPlayer = Player.Get(cmdSender.SenderId);
-            if (!(potentialPlayer is Player player))
-            {
-                response = "<color=red>该命令只能由玩家使用！</color>";
-                return false;
-            }
+            if (!(potentialPlayer is Player player)) return false;
 
             if (arguments.Count == 0 || arguments.All(string.IsNullOrWhiteSpace))
             {
-                response = "<color=yellow>用法: .gg <消息内容></color>\n<size=60%>支持多词消息，每人每局限一次</size>";
+                response = "<color=yellow>用法: .gg <消息内容></color>\n<size=60%>每人每局限一次</size>";
                 return false;
             }
 
@@ -58,7 +50,6 @@ namespace MainPlugins.System
             Map.Broadcast(10, $"{prefix}: {message}", Broadcast.BroadcastFlags.Normal);
 
             if (!isAdmin) _usedPlayers.Add(player.UserId);
-            response = "<color=green>公告已发送！</color>";
             return true;
         }
 

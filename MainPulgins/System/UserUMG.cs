@@ -59,7 +59,6 @@ namespace MainPlugins.System
                 string roleType = GetRoleTypeString(player);
                 float tps = Time.smoothDeltaTime > 0 ? 1f / Time.smoothDeltaTime : 0f;
 
-                // 使用 Hint 并指定底部居中效果
                 string msg = $"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<size=50%><b>{player.Nickname}</b> | <color=yellow>{roleType}</color> | TPS: {tps:F1}</size>";
                 player.ShowHint(msg, 1.1f);
 
