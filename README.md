@@ -1,7 +1,3 @@
-# GitLibrary
-
-
-
 # How To Edit ?
 
 - Porject -> Add Reference -> browse （you download path）
